@@ -1,0 +1,103 @@
+项目名称：FashionMNIST 服装图像分类器
+
+1. 项目背景
+
+我们需要训练一个 AI 模型，能够自动识别 28x28 像素的灰度服装图片（如 T恤、裤子、鞋子等）。
+
+2. 开发环境
+
+框架：PyTorch
+
+设备：优先使用 GPU (CUDA/DirectML)，无 GPU 则使用 CPU
+
+3. 数据集规格 (Data Specs)
+
+数据集名称：FashionMNIST (位于 torchvision.datasets)
+
+图像特征：28x28 像素，单通道（灰度）
+
+类别数量：10 类
+
+预处理要求：
+
+必须转换为 Tensor
+
+归一化 (Normalization)：
+
+均值 (Mean): 0.2860
+
+标准差 (Std): 0.3530
+
+注意：这里的均值和方差与 MNIST 不同，请务必修改
+
+4. 模型架构要求 (Model Architecture)
+
+类型：全连接神经网络 (Fully Connected Neural Network)
+
+输入层：需将二维图像 (28x28) 展平 (Flatten) 为一维向量 (784)
+
+隐藏层：至少包含 2 层隐藏层（神经元数量自定，推荐 512 或 256）
+
+激活函数：ReLU
+
+输出层：10 个节点（对应 10 个分类）
+
+5. 训练配置 (Training Config)
+
+Batch Size：64
+
+Learning Rate：1e-3 (0.001)
+
+Epochs：5 轮
+
+损失函数：交叉熵损失 (CrossEntropyLoss)
+
+优化器：Adam
+
+6. 功能模块要求
+
+代码必须包含以下清晰的逻辑模块（参考你的五步法）：
+
+数据准备：下载、加载、洗牌。
+
+模型类定义：继承 nn.Module，实现 __init__ 和 forward。
+
+训练循环：
+
+必须包含标准的 "清零 -> 反传 -> 更新" 步骤。
+
+每训练 100 个 batch 打印一次 Loss。
+
+评估函数：
+
+在测试集上计算准确率。
+
+必须使用 torch.no_grad()。
+
+7. 交付目标
+
+程序能从头运行无报错。
+
+最终测试集准确率 (Test Accuracy) 应达到 82% - 87% 之间。
+
+附录：API 速查表 (Cheat Sheet)
+
+如果你突然忘了某个单词怎么拼，可以看这里，但尽量先自己想
+
+转换器组合: transforms.Compose([...])
+
+全连接层: nn.Linear(in, out)
+
+激活函数: nn.ReLU()
+
+展平层: nn.Flatten()
+
+损失函数: nn.CrossEntropyLoss()
+
+优化器: torch.optim.Adam(params, lr=...)
+
+梯度清零: optimizer.zero_grad()
+
+反向传播: loss.backward()
+
+参数更新: optimizer.step()
